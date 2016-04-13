@@ -1,1 +1,0 @@
-/Users/jmarkow/Development/MATLAB/stability-analysis/helpers/misc/dirs_work.txt
