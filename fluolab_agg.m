@@ -4,7 +4,7 @@ function stan_agg_nervecut_audio()
 
 % get options
 
-[options,dirs]=stan_preflight;
+[options,dirs]=fluolab_preflight;
 
 % gather dates, copy only mic data (stitch too?)
 %
