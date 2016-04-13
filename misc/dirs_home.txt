@@ -2,3 +2,5 @@
 #folder for converted files
 
 data_dir=~/Desktop/Dropbox/Backup/photometry
+fluo_dir=/fluo_data
+
