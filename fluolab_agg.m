@@ -9,7 +9,7 @@ function stan_agg_nervecut_audio()
 % gather dates, copy only mic data (stitch too?)
 %
 
-listing=robofinch_dir_recurse(pwd,'aggregated_data.mat');
+listing=robofinch_dir_recurse(pwd,'roboaggregate.mat');
 
 if isempty(listing)
 	return;
@@ -19,11 +19,11 @@ tmp=regexp(listing(1).name,'((\d+-)+\d+)','match');
 date_number=datenum(tmp);
 tmp=regexp(listing(1).name,filesep,'split');
 birdid=tmp{end-7};
-motifid=tmp{end-3};
+motifid=regexprep(tmp{end-3},'_roboextract','');
 
 % template should be here
 
-new_dir=template_dir(1:end-7);
+new_dir=tmp(1:end-7);
 new_dir{end+1}='hvc';
 new_dir{end+1}='templates';
 new_dir{end+1}=motifid;
