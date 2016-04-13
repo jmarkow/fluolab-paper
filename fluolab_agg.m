@@ -18,11 +18,8 @@ if isempty(listing)
 end
 
 
-
-% template should be here
-
-
-
+% get the template data, any relevant options, and extract and put in a well named
+% directory structure
 
 for i=1:length(listing)
 
@@ -64,12 +61,10 @@ for i=1:length(listing)
 	disp([data_file]);
 	disp(fullfile(store_dir,store_file));
 
-	% move the data file to the store_dir, rename to something useful???
-
 	% simply save everything, but rename the file to something useful and make sure
 
-	%save(data_file,'template_data','-append');
-	%copyfile(data_file,fullfile(store_dir,store_file))
+	save(data_file,'template_data','-append','-v7.3');
+	copyfile(data_file,fullfile(store_dir,store_file))
 
 	% go back to the template and retrieve the pad size, we def. need this for analysis
 
