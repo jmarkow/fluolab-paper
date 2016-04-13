@@ -19,8 +19,20 @@ tmp=regexp(listing(1).name,'((\d+-)+\d+)','match');
 date_number=datenum(tmp);
 tmp=regexp(listing(1).name,filesep,'split');
 birdid=tmp{end-7};
+motifid=tmp{end-3};
 
-storedir=fullfile(dirs.data_dir,dirs.fluo_dir,[ birdid '_' datestr(date_number,'yyyy-mm-dd') ]);
+% template should be here
+
+new_dir=template_dir(1:end-7);
+new_dir{end+1}='hvc';
+new_dir{end+1}='templates';
+new_dir{end+1}=motifid;
+template_dir=strjoin(new_dir,filesep)
+
+pause();
+
+
+storedir=fullfile(dirs.data_dir,dirs.fluo_dir,[ birdid '_' motifid '_' datestr(date_number,'yyyy-mm-dd') ]);
 storedir
 if ~exist(storedir,'dir')
 	%mkdir(storedir);
@@ -28,7 +40,11 @@ end
 
 for i=1:length(listing)
 	disp([listing(i).name]);
-	% get adc, audio and ttl, get out of dodge...
+
+	% simply save everything, but rename the file to something useful and make sure
+	% we keep all relevant parameters
+
+	% go back to the template and retrieve the pad size, we def. need this for analysis
 
 end
 
