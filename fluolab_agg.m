@@ -9,7 +9,9 @@ function stan_agg_nervecut_audio()
 % gather dates, copy only mic data (stitch too?)
 %
 
-listing=robofinch_dir_recurse(pwd,'roboaggregate.mat');
+%listing=robofinch_dir_recurse(pwd,'roboaggregate.mat');
+listing=robofinch_dir_recurse(pwd,'forpaper')
+% or search for directories that have mark...
 
 if isempty(listing)
 	return;
@@ -27,25 +29,43 @@ new_dir=tmp(1:end-7);
 new_dir{end+1}='hvc';
 new_dir{end+1}='templates';
 new_dir{end+1}=motifid;
-template_dir=strjoin(new_dir,filesep)
+template_dir=strjoin(new_dir,filesep);
+template_file=fullfile(template_dir,'template_data.mat');
+template_opts=fullfile(template_dir,'robofinch_parameters.txt');
 
-pause();
+store_dir=fullfile(dirs.data_dir,dirs.fluo_dir,birdid,);
+store_file=[ motifid '_' datestr(date_number,'yyyy-mm-dd') '.mat' ];
 
+store_dir
+store_file
 
-storedir=fullfile(dirs.data_dir,dirs.fluo_dir,[ birdid '_' motifid '_' datestr(date_number,'yyyy-mm-dd') ]);
-storedir
-if ~exist(storedir,'dir')
-	%mkdir(storedir);
+if ~exist(store_dir,'dir')
+	%mkdir(store_dir);
 end
 
 for i=1:length(listing)
+
 	disp([listing(i).name]);
+	template_options=robofinch_read_config(template_dirs)
+
+	% get the template data
+
+	load(template_file,'template');
+	template.extract_options=template_options
+
+	[pathname,~,~]=fileparts(listing(i).name)
+
+	data_file=fullfile(pathname,'roboaggregate.mat')
+
+	% move the data file to the store_dir, rename to something useful???
 
 	% simply save everything, but rename the file to something useful and make sure
-	% we keep all relevant parameters
+
+	%save(data_file,'template_data','-append');
+	%copyfile(data_file,fullfile(store_dir,store_file))
 
 	% go back to the template and retrieve the pad size, we def. need this for analysis
 
 end
 
-%save(fullfile(storedir,['mic_data.mat']),'agg_audio','-v7.3');
+%save(fullfile(store_dir,['mic_data.mat']),'agg_audio','-v7.3');
