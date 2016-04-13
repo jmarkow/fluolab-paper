@@ -1,0 +1,4 @@
+#
+#folder for converted files
+
+data_dir=~/Desktop/Dropbox/Backup/photometry
