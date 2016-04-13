@@ -27,27 +27,29 @@ end
 for i=1:length(listing)
 
 	disp([listing(i).name]);
-  tmp=regexp(listing(i).name,'((\d+-)+\d+)','match');
-date_number=datenum(tmp);
-tmp=regexp(listing(i).name,filesep,'split');
-birdid=tmp{end-7};
-motifid=regexprep(tmp{end-3},'_roboextract','');
 
-    new_dir=tmp(1:end-7);
-new_dir{end+1}='templates';
-new_dir{end+1}=motifid;
-template_dir=strjoin(new_dir,filesep);
-template_file=fullfile(template_dir,'template_data.mat');
-template_opts=fullfile(template_dir,'robofinch_parameters.txt');
+	tmp=regexp(listing(i).name,'((\d+-)+\d+)','match');
+	date_number=datenum(tmp);
+	tmp=regexp(listing(i).name,filesep,'split');
+	birdid=tmp{end-7};
 
-store_dir=fullfile(dirs.data_dir,dirs.fluo_dir,birdid);
-store_file=[ motifid '_' datestr(date_number,'yyyy-mm-dd') '.mat' ];
+	motifid=regexprep(tmp{end-3},'_roboextract','');
 
+	new_dir=tmp(1:end-7);
+	new_dir{end+1}='templates';
+	new_dir{end+1}=motifid;
 
-if ~exist(store_dir,'dir')
-	%mkdir(store_dir);
-end
-    
+	template_dir=strjoin(new_dir,filesep);
+	template_file=fullfile(template_dir,'template_data.mat');
+	template_opts=fullfile(template_dir,'robofinch_parameters.txt');
+
+	store_dir=fullfile(dirs.data_dir,dirs.fluo_dir,birdid);
+	store_file=[ motifid '_' datestr(date_number,'yyyy-mm-dd') '.mat' ];
+
+	if ~exist(store_dir,'dir')
+		%mkdir(store_dir);
+	end
+
 	template_options=robofinch_read_config(template_opts);
 
 	% get the template data
@@ -56,13 +58,12 @@ end
 	template.extract_options=template_options;
 
 	[pathname,~,~]=fileparts(listing(i).name);
-	data_file=fullfile(pathname,'roboaggregate.mat')
+	data_file=fullfile(pathname,'roboaggregate.mat');
 
-    template_file
-    store_file
-    
-    pause();
-    
+	disp([template_file]);
+	disp([data_file]);
+	disp(fullfile(store_dir,store_file));
+
 	% move the data file to the store_dir, rename to something useful???
 
 	% simply save everything, but rename the file to something useful and make sure
