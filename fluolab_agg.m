@@ -44,7 +44,7 @@ for i=1:length(listing)
 	store_file=[ motifid '_' datestr(date_number,'yyyy-mm-dd') '.mat' ];
 
 	if ~exist(store_dir,'dir')
-		%mkdir(store_dir);
+		mkdir(store_dir);
 	end
 
 	template_options=robofinch_read_config(template_opts);
@@ -63,7 +63,7 @@ for i=1:length(listing)
 
 	% simply save everything, but rename the file to something useful and make sure
 
-	save(data_file,'template_data','-append','-v7.3');
+	save(data_file,'template','-append');
 	copyfile(data_file,fullfile(store_dir,store_file))
 
 	% go back to the template and retrieve the pad size, we def. need this for analysis
