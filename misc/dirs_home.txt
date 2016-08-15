@@ -1,6 +1,6 @@
 #
 #folder for converted files
 
-data_dir=/Volumes/MRJBOD/Dropbox/Backup/photometry
+data_dir=~/Desktop/photometry
 fluo_dir=/fluo_data
 
